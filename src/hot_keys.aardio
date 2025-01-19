@@ -1,11 +1,14 @@
 import console;
 
 import win.appBar;
-	
+
+
+var lastActiveHwnd;
 function updateWinSize(calculate){
 	var activeHwnd = win.getForeground();
 	if (activeHwnd) {
-    	//console.log("当前活动窗口的句柄为: " + win.getId(activeHwnd));
+		lastActiveHwnd = activeHwnd;
+    	console.log("当前活动窗口的句柄为: " + activeHwnd);
 		var workArea = win.getWorkArea();
 		var workWidth = workArea.right - workArea.left;  // 工作区域的宽度
 		var workHeight = workArea.bottom - workArea.top; // 工作区域的高度
@@ -85,7 +88,7 @@ var keys = {
 			updateWinSize(func)
 		}
 	 },
-	['line1']: {id: "line",},
+	//['line1']: {id: "line",},
 	[6]: { id: "topLeftTemplate.png", name: "左上", tip: "Ctrl+Alt+U", key: "Ctrl+Alt+U", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["U"]] = key.VK["U"] },
 		update = function(){
 			var func = function(rect, work) {
@@ -134,7 +137,7 @@ var keys = {
 			updateWinSize(func)
 		}
 	  },
-	['line2']: {id: "line",},
+	//['line2']: {id: "line",},
 	[10]: { id: "firstThirdTemplate.png", name: "左首1 / 3", tip: "Ctrl+Alt+D", key: "Ctrl+Alt+D", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["D"]] = key.VK["D"] },
 		update = function(){
 			var func = function(rect, work) {
@@ -195,7 +198,7 @@ var keys = {
 			updateWinSize(func)
 		}
 	  },
-	['line3']: {id: "line",},
+	//['line3']: {id: "line",},
 	[15]: { id: "maximizeTemplate.png", name: "最大化", tip: "Ctrl+Alt+ENTER", key: "Ctrl+Alt+ENTER", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["ENTER"]] = key.VK["ENTER"] },
 		update = function(){
 			var func = function(rect, work) {
@@ -298,7 +301,7 @@ var keys = {
 		}
 	
 	  },
-	['line4']: {id: "line",},
+	//['line4']: {id: "line",},
 	[22]: { id: "prevDisplayTemplate.png", name: "下一个显示器", tip: "Ctrl+Alt+WIN+LEFT", key: "Ctrl+Alt+WIN+LEFT", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["WIN"]] = key.VK["WIN"]; [key.VK["LEFT"]] = key.VK["LEFT"] },
 		update = function(){
 			console.log("下一个显示器")
