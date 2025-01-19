@@ -8,7 +8,7 @@ function updateWinSize(calculate){
 	var activeHwnd = win.getForeground();
 	if (activeHwnd) {
 		lastActiveHwnd = activeHwnd;
-    	console.log("当前活动窗口的句柄为: " + activeHwnd);
+    	//console.log("当前活动窗口的句柄为: " + activeHwnd);
 		var workArea = win.getWorkArea();
 		var workWidth = workArea.right - workArea.left;  // 工作区域的宽度
 		var workHeight = workArea.bottom - workArea.top; // 工作区域的高度
@@ -28,7 +28,7 @@ function updateWinSize(calculate){
 }
 	
 var keys = {
-	[1]: { id: "leftHalfTemplate.png", name: "左半屏", tip: "Ctrl+Alt+LEFT(◀)", key: "Ctrl+Alt+Left", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["LEFT"]] = key.VK["LEFT"] },
+	{ id: "leftHalfTemplate.png", name: "左半屏", tip: "Ctrl+Alt+LEFT(◀)", key: "Ctrl+Alt+Left", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["LEFT"]] = key.VK["LEFT"] },
 		update = function(){
 			var func = function(rect, work) {
 				rect.left = 0;
@@ -40,7 +40,7 @@ var keys = {
 			updateWinSize(func)
 		},
 	 },
-	[2]: { id: "rightHalfTemplate.png", name: "右半屏", tip: "Ctrl+Alt+RIGHT(▶)", key: "Ctrl+Alt+Right", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["RIGHT"]] = key.VK["RIGHT"] },
+	{ id: "rightHalfTemplate.png", name: "右半屏", tip: "Ctrl+Alt+RIGHT(▶)", key: "Ctrl+Alt+Right", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["RIGHT"]] = key.VK["RIGHT"] },
 		update = function(){
 			var func = function(rect, work) {
 				rect.left = math.floor(work.workWidth / 2);
@@ -52,7 +52,7 @@ var keys = {
 			updateWinSize(func)
 		}
 	 },
-	[3]: { id: "halfWidthCenterTemplate.png", name:  "中间半屏", tip: "", key: "", keys: {},
+	{ id: "halfWidthCenterTemplate.png", name:  "中间半屏", tip: "", key: "", keys: {},
 		update = function(){
 			var func = function(rect, work) {
 				rect.left = math.floor(work.workWidth / 4);
@@ -64,7 +64,7 @@ var keys = {
 			updateWinSize(func)
 		}
 	 },
-	[4]: { id: "topHalfTemplate.png", name: "上半屏", tip: "Ctrl+Alt+UP(▲)", key: "Ctrl+Alt+UP", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["UP"]] = key.VK["UP"] },
+	{ id: "topHalfTemplate.png", name: "上半屏", tip: "Ctrl+Alt+UP(▲)", key: "Ctrl+Alt+UP", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["UP"]] = key.VK["UP"] },
 		update = function(){
 			var func = function(rect, work) {
 				rect.left = 0;
@@ -76,7 +76,7 @@ var keys = {
 			updateWinSize(func)
 		}
 	 },
-	[5]: { id: "bottomHalfTemplate.png", name: "下半屏", tip: "Ctrl+Alt+DOWN(▼)", key: "Ctrl+Alt+DOWN", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["DOWN"]] = key.VK["DOWN"] },
+	{ id: "bottomHalfTemplate.png", name: "下半屏", tip: "Ctrl+Alt+DOWN(▼)", key: "Ctrl+Alt+DOWN", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["DOWN"]] = key.VK["DOWN"] },
 		update = function(){
 			var func = function(rect, work) {
 				rect.left = 0;
@@ -88,8 +88,8 @@ var keys = {
 			updateWinSize(func)
 		}
 	 },
-	//['line1']: {id: "line",},
-	[6]: { id: "topLeftTemplate.png", name: "左上", tip: "Ctrl+Alt+U", key: "Ctrl+Alt+U", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["U"]] = key.VK["U"] },
+	{id: "line",},
+	{ id: "topLeftTemplate.png", name: "左上", tip: "Ctrl+Alt+U", key: "Ctrl+Alt+U", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["U"]] = key.VK["U"] },
 		update = function(){
 			var func = function(rect, work) {
 				rect.left = 0;
@@ -101,7 +101,7 @@ var keys = {
 			updateWinSize(func)
 		}
 	  },
-	[7]: { id: "topRightTemplate.png", name: "右上", tip: "Ctrl+Alt+I", key: "Ctrl+Alt+I", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["I"]] = key.VK["I"] },
+	{ id: "topRightTemplate.png", name: "右上", tip: "Ctrl+Alt+I", key: "Ctrl+Alt+I", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["I"]] = key.VK["I"] },
 		update = function(){
 			var func = function(rect, work) {
 				rect.left = math.floor(work.workWidth / 2);
@@ -113,7 +113,7 @@ var keys = {
 			updateWinSize(func)
 		}
 	  },
-	[8]: { id: "bottomLeftTemplate.png", name: "左下", tip: "Ctrl+Alt+J", key: "Ctrl+Alt+J", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["J"]] = key.VK["J"] },
+	{ id: "bottomLeftTemplate.png", name: "左下", tip: "Ctrl+Alt+J", key: "Ctrl+Alt+J", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["J"]] = key.VK["J"] },
 		update = function(){
 			var func = function(rect, work) {
 				rect.left = 0;
@@ -125,7 +125,7 @@ var keys = {
 			updateWinSize(func)
 		}
 	  },
-	[9]: { id: "bottomRightTemplate.png", name: "右下", tip: "Ctrl+Alt+K", key: "Ctrl+Alt+K", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["K"]] = key.VK["K"] },
+	{ id: "bottomRightTemplate.png", name: "右下", tip: "Ctrl+Alt+K", key: "Ctrl+Alt+K", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["K"]] = key.VK["K"] },
 		update = function(){
 			var func = function(rect, work) {
 				rect.left = math.floor(work.workWidth / 2);
@@ -137,8 +137,8 @@ var keys = {
 			updateWinSize(func)
 		}
 	  },
-	//['line2']: {id: "line",},
-	[10]: { id: "firstThirdTemplate.png", name: "左首1 / 3", tip: "Ctrl+Alt+D", key: "Ctrl+Alt+D", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["D"]] = key.VK["D"] },
+	{id: "line",},
+	{ id: "firstThirdTemplate.png", name: "左首1 / 3", tip: "Ctrl+Alt+D", key: "Ctrl+Alt+D", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["D"]] = key.VK["D"] },
 		update = function(){
 			var func = function(rect, work) {
 				rect.left = 0;
@@ -150,7 +150,7 @@ var keys = {
 			updateWinSize(func)
 		}
 	  },
-	[11]: { id: "centerThirdTemplate.png", name: "中间1 / 3", tip: "Ctrl+Alt+F", key: "Ctrl+Alt+F", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["F"]] = key.VK["F"] },
+	{ id: "centerThirdTemplate.png", name: "中间1 / 3", tip: "Ctrl+Alt+F", key: "Ctrl+Alt+F", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["F"]] = key.VK["F"] },
 		update = function(){
 			var func = function(rect, work) {
 				rect.left = math.floor(work.workWidth / 3);
@@ -162,7 +162,7 @@ var keys = {
 			updateWinSize(func)
 		}
 	  },
-	[12]: { id: "lastThirdTemplate.png", name: "右首1 / 3", tip: "Ctrl+Alt+G", key: "Ctrl+Alt+G", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["G"]] = key.VK["G"] },
+	{ id: "lastThirdTemplate.png", name: "右首1 / 3", tip: "Ctrl+Alt+G", key: "Ctrl+Alt+G", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["G"]] = key.VK["G"] },
 		update = function(){
 			var func = function(rect, work) {
 				rect.left = math.floor(work.workWidth / 3) * 2;
@@ -174,7 +174,7 @@ var keys = {
 			updateWinSize(func)
 		}
 	  },
-	[13]: { id: "firstTwoThirdsTemplate.png", name:  "左侧2 / 3", tip: "Ctrl+Alt+E", key: "Ctrl+Alt+E", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["E"]] = key.VK["E"] },
+	{ id: "firstTwoThirdsTemplate.png", name:  "左侧2 / 3", tip: "Ctrl+Alt+E", key: "Ctrl+Alt+E", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["E"]] = key.VK["E"] },
 		update = function(){
 			var func = function(rect, work) {
 				rect.left = 0;
@@ -186,7 +186,7 @@ var keys = {
 			updateWinSize(func)
 		}
 	  },
-	[14]: { id: "lastTwoThirdsTemplate.png", name: "右侧2 / 3", tip: "Ctrl+Alt+T", key: "Ctrl+Alt+T", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["T"]] = key.VK["T"] },
+	{ id: "lastTwoThirdsTemplate.png", name: "右侧2 / 3", tip: "Ctrl+Alt+T", key: "Ctrl+Alt+T", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["T"]] = key.VK["T"] },
 		update = function(){
 			var func = function(rect, work) {
 				rect.left = math.floor(work.workWidth / 3);
@@ -198,8 +198,8 @@ var keys = {
 			updateWinSize(func)
 		}
 	  },
-	//['line3']: {id: "line",},
-	[15]: { id: "maximizeTemplate.png", name: "最大化", tip: "Ctrl+Alt+ENTER", key: "Ctrl+Alt+ENTER", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["ENTER"]] = key.VK["ENTER"] },
+	{id: "line",},
+	{ id: "maximizeTemplate.png", name: "最大化", tip: "Ctrl+Alt+ENTER", key: "Ctrl+Alt+ENTER", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["ENTER"]] = key.VK["ENTER"] },
 		update = function(){
 			var func = function(rect, work) {
 				rect.left = 0;
@@ -211,7 +211,7 @@ var keys = {
 			updateWinSize(func)
 		}
 	  },
-	[16]: { id: "almostMaximizeTemplate.png", name: "接近最大化",tip: "", key: "", keys: {  },
+	{ id: "almostMaximizeTemplate.png", name: "接近最大化",tip: "", key: "", keys: {  },
 		update = function(){
 			var func = function(rect, work) {
 				var margin = 20;
@@ -224,7 +224,7 @@ var keys = {
 			updateWinSize(func)
 		}
 	 },
-	[17]: { id: "maximizeHeightTemplate.png", name: "最大化高度", tip: "Ctrl+Alt+SHIFT+UP", key: "Ctrl+Alt+SHIFT+UP", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["SHIFT"]] = key.VK["SHIFT"]; [key.VK["UP"]] = key.VK["UP"] },
+	{ id: "maximizeHeightTemplate.png", name: "最大化高度", tip: "Ctrl+Alt+SHIFT+UP", key: "Ctrl+Alt+SHIFT+UP", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["SHIFT"]] = key.VK["SHIFT"]; [key.VK["UP"]] = key.VK["UP"] },
 		update = function(){
 			var func = function(rect, work) {
 				//rect.left = 0;
@@ -236,7 +236,7 @@ var keys = {
 			updateWinSize(func)
 		}
 	  },
-	[18]: { id: "makeSmallerTemplate.png", name: "缩小", tip: "Ctrl+Alt+-", key: "Ctrl+Alt+-", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["MINU"]] = key.VK["MINU"] },
+	{ id: "makeSmallerTemplate.png", name: "缩小", tip: "Ctrl+Alt+-", key: "Ctrl+Alt+-", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["MINU"]] = key.VK["MINU"] },
 		update = function(){
 			var func = function(rect, work) {
 				var step = 30;
@@ -254,7 +254,7 @@ var keys = {
 			updateWinSize(func)
 		}
 	  },
-	[19]: { id: "makeLargerTemplate.png", name: "放大", tip: "Ctrl+Alt+=", key: "Ctrl+Alt+=", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["PLUS"]] = key.VK["PLUS"] },
+	{ id: "makeLargerTemplate.png", name: "放大", tip: "Ctrl+Alt+=", key: "Ctrl+Alt+=", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["PLUS"]] = key.VK["PLUS"] },
 		update = function(){
 			var func = function(rect, work) {
 				var step = 30;
@@ -283,7 +283,7 @@ var keys = {
 			updateWinSize(func)
 		}
 	  },
-	[20]: { id: "centerTemplate.png", name: "中间", tip: "Ctrl+Alt+C",key: "Ctrl+Alt+C", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["C"]] = key.VK["C"] },
+	{ id: "centerTemplate.png", name: "中间", tip: "Ctrl+Alt+C",key: "Ctrl+Alt+C", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["C"]] = key.VK["C"] },
 		update = function(){
 			var func = function(rect, work) {
 				rect.left = math.floor(work.workWidth / 3);
@@ -295,19 +295,19 @@ var keys = {
 			updateWinSize(func)
 		}
 	  },
-	[21]: { id: "restoreTemplate.png", name: "恢复", tip: "Ctrl+Alt+BACK", key: "Ctrl+Alt+BACK", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["BACK"]] = key.VK["BACK"] },
+	{ id: "restoreTemplate.png", name: "恢复", tip: "Ctrl+Alt+BACK", key: "Ctrl+Alt+BACK", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["BACK"]] = key.VK["BACK"] },
 		update = function(){
 			console.log("恢复")
 		}
 	
 	  },
-	//['line4']: {id: "line",},
-	[22]: { id: "prevDisplayTemplate.png", name: "下一个显示器", tip: "Ctrl+Alt+WIN+LEFT", key: "Ctrl+Alt+WIN+LEFT", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["WIN"]] = key.VK["WIN"]; [key.VK["LEFT"]] = key.VK["LEFT"] },
+	{id: "line",},
+	{ id: "prevDisplayTemplate.png", name: "下一个显示器", tip: "Ctrl+Alt+WIN+LEFT", key: "Ctrl+Alt+WIN+LEFT", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["WIN"]] = key.VK["WIN"]; [key.VK["LEFT"]] = key.VK["LEFT"] },
 		update = function(){
 			console.log("下一个显示器")
 		}
 	  },
-	[23]: { id: "nextDisplayTemplate.png", name: "上一个显示器", tip: "Ctrl+Alt+WIN+RIGHT", key: "Ctrl+Alt+WIN+RIGHT", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["WIN"]] = key.VK["WIN"]; [key.VK["RIGHT"]] = key.VK["RIGHT"] },
+	{ id: "nextDisplayTemplate.png", name: "上一个显示器", tip: "Ctrl+Alt+WIN+RIGHT", key: "Ctrl+Alt+WIN+RIGHT", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["WIN"]] = key.VK["WIN"]; [key.VK["RIGHT"]] = key.VK["RIGHT"] },
 		update = function(){
 			console.log("上一个显示器")
 		}
