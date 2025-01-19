@@ -1,0 +1,168 @@
+import win.ui;
+import win.util.tray;
+import console;
+import key.hotkey;
+import table;
+
+var keys = loadcodex("\src\hot_keys.aardio");
+
+
+//console.dumpJson(keys)
+
+//创建隐藏窗口
+var winform = win.form(text="Zephyr";right=300;bottom=300)
+winform.show(false) //隐藏窗口
+
+// 设置托盘图标
+var tray = win.util.tray(winform)
+tray.icon = "\res\ixnwr-pn99g-001.ico"
+tray.tip = "zephyr";
+superHotkey = key.hotkey(); // 创建系统热键
+
+
+/* // 组合键必须全部按键松开之后才会触发，不使用
+for k,v in keys {
+	if( v['key'] && v['key'] != "") {
+		superHotkey.regEndStr(v['key'], function(){
+			console.log(v['key']) ;
+    	});
+	}
+}
+*/
+
+function isTableEmtry(t){
+	var r = true
+	for k,data in t {
+		r = false
+	}
+	return r; 
+}
+
+function tableIncludes(t, v){
+	var r = false
+	for index,data in t {
+		if (v == data) {
+			return true; 
+		}
+	}
+	return false; 
+	
+}
+
+function tableLength(t){
+	var l = 0;
+	for index,data in t {
+		l+=1
+	}
+	return l; 
+}
+
+
+
+// 使用 onKeyDown 和 onKeyUp 组合识别
+var keyDowns = {}
+
+superHotkey.onKeyDown = function(vk){
+	//keyDowns[[vk]] = vk
+	//keyDowns[vk] = vk
+	
+	table.push(keyDowns, vk);
+}
+
+superHotkey.onKeyUp = function(vk){
+	// 清除keyDowns中的内容
+	for index,value in keyDowns {
+		if (value == vk) {
+			table.remove(keyDowns, index)
+		}
+	}
+	// 判断到底是哪个快捷键
+	for k,data in keys {
+		// var min,max = table.range(data["keys"]);
+		// if (max == 0) { continue }*/
+		// 如果没有设定快捷，就直接跳过
+		if (isTableEmtry(data["keys"]) == true) {continue}
+		// 判断快捷是否严格对应
+		if (#keyDowns + 1 != tableLength(data["keys"])) {continue}
+		
+		// 检查快捷键
+		var r = true;
+		for _, v in data["keys"] {
+			if (!(tableIncludes(keyDowns, v) || v == vk)) {
+				r = false
+			}	
+		}
+		if (r) {
+			//console.log("命中了", data["name"])
+			//updateWinSize(data)
+			data.update()
+			break;
+		}
+	}
+}
+
+
+winform.onTrayMessage = {
+    [0x205/*_WM_RBUTTONUP 鼠标右键在托盘图标上释放时触发*/  ] = function(wParam){ 
+        //弹出托盘菜单以前,一定要前置主窗口中,
+        //避免不点击菜单不会消失，父窗口隐藏也要这样做
+        win.setForeground(winform.hwnd,true) //参数 2 为 true 避免显示最小化窗口
+
+        /*
+        下面创建托盘弹出菜单。
+        如果程序要开机启动到托盘，最好在这里创建菜单，在用户点击前不要创建菜单，
+        避免系统启动时 DPI 缩放前创建的菜单字体偏小（出现这情况的机率很小）。
+        如果不想重复创建菜单最好写到一个库里，然后在这里 import 即可避免上述问题。
+        */
+        import win.ui.menu;
+		var a = "biaoti"
+		var c = "xx"
+        winform.popmenu = win.ui.popmenu(winform);//创建弹出菜单
+        // 将预设的菜单插入到右键菜单中
+        
+		for k,v in keys {
+            if (v['id'] == "line") {
+            	winform.popmenu.add();//分隔线
+            } else {
+            	winform.popmenu.add(
+        			text= v["name"] + '\t' + v["tip"],
+        			
+        			bitmap = ..gdip.bitmap("\res\Positions\" + v["id"]).copyHandle();
+        			//bitmapCheckd = "选中位图句柄或路径、或图像数据,可选参数";
+        			proc = function(id){
+        				v.update()
+        			};
+        			//id = 可选参数;
+        			//flag = 可选参数;
+        		);
+            
+            }
+        	
+        }
+
+        
+        winform.popmenu.add();//分隔线
+        winform.popmenu.add('&退出',function(id){ winform.close() })        
+
+        winform.popmenu.popup();
+        winform.popmenu.close();
+    };
+    [0x202/*_WM_LBUTTONUP 鼠标左键在托盘图标上释放时触发*/] = function(wParam){ 
+
+    };
+    [0x203/*_WM_LBUTTONDBLCLK 鼠标左键在托盘图标上双击时触发*/] = function(wParam){ 
+
+    };
+    [0x404/*_PARAM_DESTROY 托盘图标被销毁时触发*/] = function(wParam){ 
+
+    };
+    [0x405/*_PARAM_CLICKED 自定义点击事件（通常用于处理特定的点击操作）*/] = function(wParam){ 
+
+    };
+}
+
+//updateWinSize()
+
+
+//启动窗口消息循环
+win.loopMessage();
