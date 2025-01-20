@@ -6,7 +6,7 @@ import table;
 import winex;
 
 var keys = loadcodex("\src\hot_keys.aardio");
-
+var isTableEmtry,tableIncludes,tableLength = loadcodex("\src\table_util.aardio");
 
 //创建隐藏窗口
 var winform = win.form(text="Zephyr";right=300;bottom=300)
@@ -29,32 +29,6 @@ for k,v in keys {
 }
 */
 
-function isTableEmtry(t){
-	var r = true
-	for k,data in t {
-		r = false
-	}
-	return r; 
-}
-
-function tableIncludes(t, v){
-	var r = false
-	for index,data in t {
-		if (v == data) {
-			return true; 
-		}
-	}
-	return false; 
-	
-}
-
-function tableLength(t){
-	var l = 0;
-	for index,data in t {
-		l+=1
-	}
-	return l; 
-}
 
 
 

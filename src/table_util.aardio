@@ -1,0 +1,30 @@
+import table;
+
+function isTableEmtry(t){
+	var r = true
+	for k,data in t {
+		r = false
+	}
+	return r; 
+}
+
+function tableIncludes(t, v){
+	var r = false
+	for index,data in t {
+		if (v == data) {
+			return true; 
+		}
+	}
+	return false; 
+	
+}
+
+function tableLength(t){
+	var l = 0;
+	for index,data in t {
+		l+=1
+	}
+	return l; 
+}
+
+return isTableEmtry,tableIncludes,tableLength; 
