@@ -79,5 +79,4 @@ function registerDestroyWinHook(fn){
 	table.push(destroyHooks, fn)
 }
 
-return registerChangeWinSizeHook; 
-return registerDestroyWinHook; 
+return registerChangeWinSizeHook,registerDestroyWinHook; 
