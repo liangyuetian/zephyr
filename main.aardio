@@ -5,9 +5,20 @@ import key.hotkey;
 import table;
 import winex;
 import raw;
-
+import process;
 var keys = loadcodex("\src\hot_keys.aardio");
 var isTableEmtry,tableIncludes,tableLength = loadcodex("\src\table_util.aardio");
+
+prcs = process() 
+
+// 如果已经有相同的进程，则直接退出
+for processEntry in process.each( "zephyr.exe" ) {
+	//win.msgbox('已经存在此进程')
+	 if (processEntry.th32ProcessID != prcs.id) {
+	 	win.msgbox('已经存在此进程')
+	 	return ;
+	 }
+}
 
 //创建隐藏窗口
 var winform = win.form(text="Zephyr";right=300;bottom=300)
@@ -18,6 +29,7 @@ var tray = win.util.tray(winform)
 tray.icon = "\res\ixnwr-pn99g-001.ico"
 tray.tip = "zephyr";
 superHotkey = key.hotkey(); // 创建系统热键
+
 
 
 /* // 组合键必须全部按键松开之后才会触发，不使用

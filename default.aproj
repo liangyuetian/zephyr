@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<project ver="10" name="zephyr" libEmbed="true" icon="res\ixnwr-pn99g-001.ico" ui="win" output="zephyr.exe" CompanyName="单位名称" FileDescription="zephyr" LegalCopyright="Copyright (C) 作者 2025" ProductName="zephyr" InternalName="zephyr" FileVersion="0.0.0.11" ProductVersion="0.0.0.11" publishDir="/dist/" dstrip="false" local="false" ignored="false">
+<project ver="10" name="zephyr" libEmbed="true" icon="res\ixnwr-pn99g-001.ico" ui="win" output="zephyr.exe" CompanyName="单位名称" FileDescription="zephyr" LegalCopyright="Copyright (C) 作者 2025" ProductName="zephyr" InternalName="zephyr" FileVersion="0.0.0.20" ProductVersion="0.0.0.20" publishDir="/dist/" dstrip="false" local="false" ignored="false">
 	<file name="main.aardio" path="main.aardio" comment="main.aardio"/>
 	<folder name="资源文件" path="res" embed="true" local="false" ignored="false">
 		<file name="183785536-a67a2e2a-7c55-4c19-9bf8-482e734b1632.png" path="res\183785536-a67a2e2a-7c55-4c19-9bf8-482e734b1632.png" comment="res\183785536-a67a2e2a-7c55-4c19-9bf8-482e734b1632.png"/>
 		<file name="20250118133214.png" path="res\20250118133214.png" comment="res\20250118133214.png"/>
 		<file name="3a48b90b70efe9250d9d0cd6bb25429.png" path="res\3a48b90b70efe9250d9d0cd6bb25429.png" comment="res\3a48b90b70efe9250d9d0cd6bb25429.png"/>
 		<file name="FxemojiScreen.png" path="res\FxemojiScreen.png" comment="res\FxemojiScreen.png"/>
+		<file name="FxemojiScreen.svg" path="res\FxemojiScreen.svg" comment="res\FxemojiScreen.svg"/>
 		<file name="ixnwr-pn99g-001.ico" path="res\ixnwr-pn99g-001.ico" comment="res\ixnwr-pn99g-001.ico"/>
-		<folder name="Positions" path="res\Positions" comment="res\Positions" local="false" embed="false" ignored="false">
+		<folder name="Positions" path="res\Positions" comment="res\Positions">
 			<file name="almostMaximizeTemplate.png" path="res\Positions\almostMaximizeTemplate.png" comment="res\Positions\almostMaximizeTemplate.png"/>
 			<file name="bottomCenterSixthTemplate.png" path="res\Positions\bottomCenterSixthTemplate.png" comment="res\Positions\bottomCenterSixthTemplate.png"/>
 			<file name="bottomHalfTemplate.png" path="res\Positions\bottomHalfTemplate.png" comment="res\Positions\bottomHalfTemplate.png"/>
