@@ -234,14 +234,8 @@ var keys = {
 	{id: "line",},
 	{ id: "maximizeTemplate.png", name: "最大化", tip: "Ctrl+Alt+ENTER", key: "Ctrl+Alt+ENTER", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["ENTER"]] = key.VK["ENTER"] },
 		update = function(){
-			var func = function(rect, work) {
-				rect.left = 0;
-				rect.right = work.workWidth;
-				rect.top = 0;
-				rect.bottom = work.workHeight;
-				return rect;
-			}
-			updateWinSize(func)
+			// https://learn.microsoft.com/zh-cn/windows/win32/api/winuser/nf-winuser-showwindow
+			::User32.ShowWindow(win.getForeground(), 3)
 		}
 	  },
 	{ id: "almostMaximizeTemplate.png", name: "接近最大化",tip: "", key: "", keys: {  },
