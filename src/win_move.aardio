@@ -1,0 +1,83 @@
+import console; 
+import raw;
+import table;
+import winex;
+
+var hooks = {} // 注册的钩子
+var destroyHooks = {} // 窗口销毁时的钩子
+var tempHwnd; // 临时储存窗口的 句柄
+var tempRect; // 临时储存窗口的 rect
+
+
+// 窗口移动或调整大小已结束
+var WinMoveIng = function(hook, event, hwnd, idObject, idChild, idEventThread, dwmsEventTime){
+	tempHwnd = hwnd;
+	tempRect = win.getRect(win.getForeground());
+	//win.getRect(hwnd)
+	//var rect = win.getRect(hwnd);
+	//console.dumpJson(rect)
+	//var agr = {...}
+	//console.dumpJson(agr)
+	// hook, event, hwnd, idObject, idChild, idEventThread, dwmsEventTime
+    //在这里处理事件
+	
+    //console.log("当前活动窗口的句柄:",hwnd == win.getForeground(), win.appBar.find(), win.getForeground()== win.appBar.find());
+}
+
+// 窗口移动或调整大小已结束
+var WinMoveEnd = function(hook, event, hwnd, idObject, idChild, idEventThread, dwmsEventTime){
+	if (tempHwnd != hwnd) {return}
+	if (hwnd != win.getForeground()) {return}
+	if (!tempRect) {return}
+	var rect = win.getRect(win.getForeground());
+	var tw = tempRect.right - tempRect.left
+	var th = tempRect.bottom - tempRect.top
+	var w = rect.right - rect.left
+	var h = rect.bottom - rect.top
+	if (tw == w && th == h) {
+		//console.log('移动窗口')
+	} else {
+		for k,fn in hooks {
+			// 触发回调
+			fn(win.getForeground())
+		}
+	}
+}
+
+//使用_callback创建回调函数
+var fnWinMoveIng = raw.tostdcall(WinMoveIng, "void(pointer,int,pointer,int,int,int,int)");
+var fnWinMoveEnd = raw.tostdcall(WinMoveEnd, "void(pointer,int,pointer,int,int,int,int)");
+
+//正在移动窗口或调整窗口的大小
+var hook1 = ::User32.SetWinEventHook(
+    0x000A/*EVENT_SYSTEM_SOUND*/,  
+    0x000A/*EVENT_OBJECT_END*/, 
+    null, 
+    fnWinMoveIng,
+    0,
+    0,
+    0/*WINEVENT_OUTOFCONTEXT*/
+);
+
+// 窗口的移动或调整大小已完成
+var hook2 = ::User32.SetWinEventHook(
+    0x000B/*EVENT_SYSTEM_SOUND*/,  
+    0x000B/*EVENT_OBJECT_END*/, 
+    null, 
+    fnWinMoveEnd,
+    0,
+    0,
+    0/*WINEVENT_OUTOFCONTEXT*/
+);
+
+// 窗口大小调整时触发
+function registerChangeWinSizeHook(fn) {
+	table.push(hooks, fn)
+}
+// 当注销窗口时触发
+function registerDestroyWinHook(fn){
+	table.push(destroyHooks, fn)
+}
+
+return registerChangeWinSizeHook; 
+return registerDestroyWinHook; 
