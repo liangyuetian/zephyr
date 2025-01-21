@@ -30,7 +30,6 @@ registerDestroyWinHook(function(hwnd){
 
 var lastActiveHwnd;
 function updateWinSize(calculate){
-	console.dump('获取当前程序的句柄', global.hwnd)
 	var activeHwnd = win.getForeground();
 	var appBarHwnd = win.appBar.find() // 系统任务栏句柄
 	if (lastActiveHwnd && (activeHwnd == appBarHwnd || activeHwnd == global.hwnd)) { 
@@ -39,13 +38,9 @@ function updateWinSize(calculate){
 		lastActiveHwnd = activeHwnd; // 记录上次的活动窗口句柄
 	}
 	
-	console.log("未找到活动窗口1", activeHwnd);
 	if (!activeHwnd) {
-		console.log("未找到活动窗口");
 		return
 	}
-	
-    //console.log("当前活动窗口的句柄为: " + activeHwnd);
 	var workArea = win.getWorkArea();
 	var workWidth = workArea.right - workArea.left;  // 工作区域的宽度
 	var workHeight = workArea.bottom - workArea.top; // 工作区域的高度

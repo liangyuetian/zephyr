@@ -13,15 +13,6 @@ var tempRect; // 临时储存窗口的 rect
 var WinMoveIng = function(hook, event, hwnd, idObject, idChild, idEventThread, dwmsEventTime){
 	tempHwnd = hwnd;
 	tempRect = win.getRect(win.getForeground());
-	//win.getRect(hwnd)
-	//var rect = win.getRect(hwnd);
-	//console.dumpJson(rect)
-	//var agr = {...}
-	//console.dumpJson(agr)
-	// hook, event, hwnd, idObject, idChild, idEventThread, dwmsEventTime
-    //在这里处理事件
-	
-    //console.log("当前活动窗口的句柄:",hwnd == win.getForeground(), win.appBar.find(), win.getForeground()== win.appBar.find());
 }
 
 // 窗口移动或调整大小已结束
