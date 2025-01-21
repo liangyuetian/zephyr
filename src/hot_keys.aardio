@@ -1,7 +1,31 @@
 import console;
-
+import table;
 import win.appBar;
 import win.property;
+
+var registerChangeWinSizeHook,registerDestroyWinHook = loadcodex("\src\win_move.aardio")
+
+
+var recoverMap = {} // 储存用于恢复的rect
+
+// 监听窗口大小变化
+registerChangeWinSizeHook(function(hwnd){
+	table.push(recoverMap, {hwnd,win.getRect(hwnd, true)})
+})
+// 监听窗口被销毁，防止内存泄露
+registerDestroyWinHook(function(hwnd){
+	var index;
+	for i, v in recoverMap {
+		if (v[1] == hwnd) {
+			index = i
+		}
+	}
+	
+	if (index) {
+		table.remove(recoverMap, index)
+	}
+	
+})
 
 
 var lastActiveHwnd;
@@ -306,19 +330,27 @@ var keys = {
 	  },
 	{ id: "restoreTemplate.png", name: "恢复", tip: "Ctrl+Alt+BACK", key: "Ctrl+Alt+BACK", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["BACK"]] = key.VK["BACK"] },
 		update = function(){
-			console.log("恢复")
+			var func = function(rect, work) {
+				for i,v in recoverMap {
+					if (v[1] === win.getForeground()) {
+						return v[2]; 
+					}
+				}
+				return rect;
+			}
+			updateWinSize(func)
 		}
 	
 	  },
 	{id: "line",},
 	{ id: "prevDisplayTemplate.png", name: "下一个显示器", tip: "Ctrl+Alt+WIN+LEFT", key: "Ctrl+Alt+WIN+LEFT", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["WIN"]] = key.VK["WIN"]; [key.VK["LEFT"]] = key.VK["LEFT"] },
 		update = function(){
-			console.log("下一个显示器")
+			//console.log("下一个显示器")
 		}
 	  },
 	{ id: "nextDisplayTemplate.png", name: "上一个显示器", tip: "Ctrl+Alt+WIN+RIGHT", key: "Ctrl+Alt+WIN+RIGHT", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["WIN"]] = key.VK["WIN"]; [key.VK["RIGHT"]] = key.VK["RIGHT"] },
 		update = function(){
-			console.log("上一个显示器")
+			//console.log("上一个显示器")
 		}
 	  },
 }
