@@ -27,6 +27,7 @@ var WinMoveEnd = function(hook, event, hwnd, idObject, idChild, idEventThread, d
 	var h = rect.bottom - rect.top
 	if (tw == w && th == h) {
 		//console.log('移动窗口')
+		fn(win.getForeground())
 	} else {
 		for k,fn in hooks {
 			// 触发回调
