@@ -6,38 +6,6 @@ import table;
 import winex;
 import raw;
 
-
-//获取SetWinEventHook函数指针
-//var pSetWinEventHook = ::User32.api("SetWinEventHook");
-
-//转换为aardio支持的函数
-//var SetWinEventHook = raw.main.api(pSetWinEventHook,
-    //"pointer(INT eventMin,INT eventMax,pointer hmodWinEventProc,pointer pfnWinEventProc,INT idProcess,INT idThread,INT dwFlags)");
-
-//定义回调函数
-var WinEventProc = function(hook, event, hwnd, idObject, idChild, idEventThread, dwmsEventTime){
-    //在这里处理事件
-    console.log("收到事件:", event, " 窗口:", hwnd,);
-    console.log("当前活动窗口的句柄:", win.getForeground());
-}
-
-//使用_callback创建回调函数
-var fnWinEventProc = raw.tostdcall(WinEventProc, "void(pointer,int,pointer,int,int,int,int)");
-
-//注册事件钩子
-var hook = ::User32.SetWinEventHook(
-    3/*EVENT_SYSTEM_SOUND*/,  
-    3/*EVENT_OBJECT_END*/, 
-    null, 
-    fnWinEventProc,
-    0,
-    0,
-    0/*WINEVENT_OUTOFCONTEXT*/
-);
-
-//记得在不需要时取消钩子
-//::User32.UnhookWinEvent(hook);
-
 var keys = loadcodex("\src\hot_keys.aardio");
 var isTableEmtry,tableIncludes,tableLength = loadcodex("\src\table_util.aardio");
 
@@ -61,8 +29,6 @@ for k,v in keys {
 	}
 }
 */
-
-
 
 
 // 使用 onKeyDown 和 onKeyUp 组合识别
@@ -99,8 +65,6 @@ superHotkey.onKeyUp = function(vk){
 			}	
 		}
 		if (r) {
-			//console.log("命中了", data["name"])
-			//updateWinSize(data)
 			data.update()
 			break;
 		}
@@ -121,8 +85,6 @@ winform.onTrayMessage = {
         如果不想重复创建菜单最好写到一个库里，然后在这里 import 即可避免上述问题。
         */
         import win.ui.menu;
-		var a = "biaoti"
-		var c = "xx"
         winform.popmenu = win.ui.popmenu(winform);//创建弹出菜单
         // 将预设的菜单插入到右键菜单中
         
@@ -166,14 +128,6 @@ winform.onTrayMessage = {
 
     };
 }
-
-//updateWinSize()
-
-/*
-while(true){
-console.log('活动', win.getForeground())
-}
-*/
 
 
 //启动窗口消息循环
