@@ -8,12 +8,7 @@ var registerChangeWinSizeHook,registerDestroyWinHook = loadcodex("\src\win_move.
 
 var recoverMap = {} // 储存用于恢复的rect
 
-// 监听窗口大小变化
-registerChangeWinSizeHook(function(hwnd){
-	table.push(recoverMap, {hwnd,win.getRect(hwnd, true)})
-})
-// 监听窗口被销毁，防止内存泄露
-registerDestroyWinHook(function(hwnd){
+function delRecoverMapHwnd(hwnd){
 	var index;
 	for i, v in recoverMap {
 		if (v[1] == hwnd) {
@@ -24,7 +19,17 @@ registerDestroyWinHook(function(hwnd){
 	if (index) {
 		table.remove(recoverMap, index)
 	}
-	
+}
+
+
+// 监听窗口大小变化
+registerChangeWinSizeHook(function(hwnd){
+	delRecoverMapHwnd(hwnd)
+	table.push(recoverMap, {hwnd,win.getRect(hwnd, true)})
+})
+// 监听窗口被销毁，防止内存泄露
+registerDestroyWinHook(function(hwnd){
+	delRecoverMapHwnd(hwnd)
 })
 
 
