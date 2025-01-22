@@ -6,6 +6,8 @@ import table;
 import winex;
 import raw;
 import process;
+import gdip;
+
 var keys = loadcodex("\src\hot_keys.aardio");
 var isTableEmtry,tableIncludes,tableLength = loadcodex("\src\table_util.aardio");
 
@@ -106,8 +108,7 @@ winform.onTrayMessage = {
             } else {
             	winform.popmenu.add(
         			text= v["name"] + '\t' + v["tip"],
-        			
-        			bitmap = ..gdip.bitmap("\res\Positions\" + v["id"]).copyHandle();
+        			bitmap = gdip.bitmap("\res\Positions\" + v['id']).copyHandle();
         			//bitmapCheckd = "选中位图句柄或路径、或图像数据,可选参数";
         			proc = function(id){
         				v.update()
@@ -140,7 +141,6 @@ winform.onTrayMessage = {
 
     };
 }
-
 
 //启动窗口消息循环
 win.loopMessage();
