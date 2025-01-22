@@ -3,7 +3,7 @@ import table;
 import win.appBar;
 import win.property;
 
-var registerChangeWinSizeHook,registerDestroyWinHook = loadcodex("\src\win_move.aardio")
+var registerChangeWinSizeHook,registerDestroyWinHook,registerForegroundWinHook = loadcodex("\src\win_move.aardio")
 
 
 var recoverMap = {} // 储存用于恢复的rect
@@ -15,11 +15,20 @@ function delRecoverMapHwnd(hwnd){
 			index = i
 		}
 	}
-	
 	if (index) {
 		table.remove(recoverMap, index)
 	}
 }
+
+function hasRecoverMapHwnd(hwnd){
+	for i, v in recoverMap {
+		if (v[1] == hwnd) {
+			return true;
+		}
+	}
+	return false; 
+}
+
 
 
 // 监听窗口大小变化
@@ -30,6 +39,12 @@ registerChangeWinSizeHook(function(hwnd){
 // 监听窗口被销毁，防止内存泄露
 registerDestroyWinHook(function(hwnd){
 	delRecoverMapHwnd(hwnd)
+})
+// 监听有窗口被激活，记录初始大小的rect
+registerForegroundWinHook(function(hwnd){
+	if (!hasRecoverMapHwnd(hwnd)) {
+		table.push(recoverMap, {hwnd,win.getRect(hwnd, true)})
+	}	
 })
 
 
