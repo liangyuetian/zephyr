@@ -17,11 +17,11 @@ if (!process.admin.isRunAs()) {
 } else {
 	win.quitMessage()
 }
-prcs = process() 
 
-// 如果已经有相同的进程，则直接退出
 
 /*
+// 如果已经有相同的进程，则直接退出
+prcs = process() 
 for processEntry in process.each( "zephyr.exe" ) {
 	//win.msgbox('已经存在此进程')
 	 if (processEntry.th32ProcessID != prcs.id) {
