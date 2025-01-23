@@ -253,12 +253,18 @@ var keys = {
 	{id: "line",},
 	{ id: "maximizeTemplate.png", name: "最大化", tip: "Win+Alt+ENTER", key: "Win+Alt+ENTER", keys: { [key.VK["WIN"]] = key.VK["WIN"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["ENTER"]] = key.VK["ENTER"] },
 		update = function(){
-			// https://learn.microsoft.com/zh-cn/windows/win32/api/winuser/nf-winuser-showwindow
-			::User32.ShowWindow(win.getForeground(), 3)
 		    var activeHwnd = getActiveHwnd();
 		    if (activeHwnd) {
+		        // https://learn.microsoft.com/zh-cn/windows/win32/api/winuser/nf-winuser-showwindow
+
+                if (win.isZoomed(activeHwnd)) {
+                    // 如果已经最大化，则恢复最大化之前的状态
+                    ::User32.ShowWindow(activeHwnd, 9)
+                } else {
                     ::User32.ShowWindow(activeHwnd, 3)
+                }
 		    }
+
 		}
 	  },
 	{ id: "almostMaximizeTemplate.png", name: "接近最大化",tip: "", key: "", keys: {  },
@@ -348,15 +354,21 @@ var keys = {
 	  },
 	{ id: "restoreTemplate.png", name: "恢复", tip: "Win+Alt+BACK", key: "Win+Alt+BACK", keys: { [key.VK["WIN"]] = key.VK["WIN"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["BACK"]] = key.VK["BACK"] },
 		update = function(){
-			var func = function(rect, work) {
-				for i,v in recoverMap {
-					if (v[1] === win.getForeground()) {
-						return v[2]; 
-					}
-				}
-				return rect;
-			}
-			updateWinSize(func)
+
+		    if (win.isZoomed(getActiveHwnd())) {
+                // 如果已经最大化，则恢复最大化之前的状态
+                ::User32.ShowWindow(getActiveHwnd(), 9)
+            } else {
+                var func = function(rect, work) {
+                    for i,v in recoverMap {
+                        if (v[1] === win.getForeground()) {
+                            return v[2];
+                        }
+                    }
+                    return rect;
+                }
+                updateWinSize(func)
+            }
 		}
 	  },
 	{id: "line",},
