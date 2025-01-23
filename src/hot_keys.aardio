@@ -280,17 +280,18 @@ var keys = {
 	  },
 	{ id: "makeSmallerTemplate.png", name: "缩小", tip: "Ctrl+Alt+-", key: "Ctrl+Alt+-", keys: { [key.VK["LCTRL"]] = key.VK["LCTRL"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["MINU"]] = key.VK["MINU"] },
 		update = function(){
+			var minW = 300
+			var minH = 300
 			var func = function(rect, work) {
 				var step = 30;
-				if (rect.left + step > rect.right - step) {
+				if (rect.right - rect.left > minW) {
 					rect.left = rect.left + step;
 					rect.right = rect.right - step;
 				}
-				if (rect.top + step > rect.bottom - step) {
+				if (rect.bottom - rect.top > minH) {
 					rect.top = rect.top + step;
 					rect.bottom = rect.bottom - step;
 				}
-
 				return rect;
 			}
 			updateWinSize(func)
