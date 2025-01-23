@@ -337,10 +337,10 @@ var keys = {
 	{ id: "centerTemplate.png", name: "中间", tip: "Win+Alt+C",key: "Win+Alt+C", keys: { [key.VK["WIN"]] = key.VK["WIN"]; [key.VK["LALT"]] = key.VK["LALT"]; [key.VK["C"]] = key.VK["C"] },
 		update = function(){
 			var func = function(rect, work) {
-				rect.left = math.floor(work.workWidth / 3);
-				rect.right = math.floor(work.workWidth / 3) * 2;
-				rect.top = math.floor(work.workHeight / 3);
-				rect.bottom = math.floor(work.workHeight / 3) * 2;
+				rect.left = math.floor(work.workWidth / 6);
+				rect.right = math.floor(work.workWidth / 6) * 5;
+				rect.top = math.floor(work.workHeight / 6);
+				rect.bottom = math.floor(work.workHeight / 6) * 5;
 				return rect;
 			}
 			updateWinSize(func)
