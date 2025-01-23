@@ -4,16 +4,20 @@
 
 > 因为 windows 下已经存在非常好用的窗口管理快捷键，此项目只实现以下快捷键：
 
+* 左上（win+alt+u）
+* 右上（win+alt+i）
+* 左下（win+alt+i）
+* 左侧 2/3（win+alt+e）
+* 右侧 2/3（win+alt+t）
 * 恢复（win+alt+back）
 * 最大化（win+alt+enter）
 * 缩小（win+alt+-）
 * 放大（win+alt+=）
 * 中间（win+alt+c）
-* 左侧 2/3（win+alt+e）
-* 右侧 2/3（win+alt+t）
 
 注意：运行需要使用管理员权限,不然有些窗口无法调整大小和位置
 
+![](hotkey.png)
 
 
 # 1 如何运行本项目
