@@ -1,6 +1,7 @@
 import win.ui;
 import win.util.tray;
 import console;
+import key;
 import key.hotkey;
 import table;
 import winex;
@@ -10,14 +11,13 @@ import gdip;
 import process.admin
 
 var keys = loadcodex("\src\hot_keys.aardio");
-var isTableEmtry,tableIncludes,tableLength = loadcodex("\src\table_util.aardio");
+var isTableEmtry,tableIncludes,tableLength,tableRemove = loadcodex("\src\table_util.aardio");
 
 if (!process.admin.isRunAs()) {
 	process.admin.runas()
 } else {
 	win.quitMessage()
 }
-
 
 /*
 // 如果已经有相同的进程，则直接退出
@@ -40,58 +40,39 @@ var tray = win.util.tray(winform)
 tray.icon = "\res\ixnwr-pn99g-001.ico"
 tray.tip = "zephyr";
 superHotkey = key.hotkey(); // 创建系统热键
-
-
-
-/* // 组合键必须全部按键松开之后才会触发，不使用
-for k,v in keys {
-	if( v['key'] && v['key'] != "") {
-		superHotkey.regEndStr(v['key'], function(){
-			console.log(v['key']) ;
-    	});
-	}
-}
-*/
-
-
 // 使用 onKeyDown 和 onKeyUp 组合识别
 var keyDowns = {}
-
 superHotkey.onKeyDown = function(vk){
-	//keyDowns[[vk]] = vk
-	//keyDowns[vk] = vk
-
+	// 记录
 	table.push(keyDowns, vk);
-}
+	
 
-superHotkey.onKeyUp = function(vk){
-	// 清除keyDowns中的内容
-	for index,value in keyDowns {
-		if (value == vk) {
-			table.remove(keyDowns, index)
-		}
-	}
-	// 判断到底是哪个快捷键
 	for k,data in keys {
-		// var min,max = table.range(data["keys"]);
-		// if (max == 0) { continue }*/
 		// 如果没有设定快捷，就直接跳过
 		if (isTableEmtry(data["keys"]) == true) {continue}
 		// 判断快捷是否严格对应
-		if (#keyDowns + 1 != tableLength(data["keys"])) {continue}
-		
+		if (#keyDowns != tableLength(data["keys"])) {continue}
+
 		// 检查快捷键
 		var r = true;
 		for _, v in data["keys"] {
-			if (!(tableIncludes(keyDowns, v) || v == vk)) {
+			if (!tableIncludes(keyDowns, v)) {
 				r = false
 			}	
 		}
 		if (r) {
 			data.update()
-			break;
+			//console.log('命中了组合', data['name'], data['tip'])
+			tableRemove(keyDowns, vk)
+			//return true; 
 		}
+	
 	}
+
+}
+superHotkey.onKeyUp = function(vk){
+	// 清除keyDowns中的内容
+	tableRemove(keyDowns, vk)
 }
 
 
