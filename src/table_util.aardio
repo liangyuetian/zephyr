@@ -27,4 +27,13 @@ function tableLength(t){
 	return l; 
 }
 
-return isTableEmtry,tableIncludes,tableLength; 
+function tableRemove(t, v){
+	for index,value in t {
+		if (value == v) {
+			table.remove(t, index)
+		}
+	}
+}
+
+
+return isTableEmtry,tableIncludes,tableLength,tableRemove; 
