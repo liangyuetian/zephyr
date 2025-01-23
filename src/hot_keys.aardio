@@ -49,18 +49,22 @@ registerForegroundWinHook(function(hwnd){
 
 
 var lastActiveHwnd;
+function getActiveHwnd() {
+    var activeHwnd = win.getForeground();
+    var appBarHwnd = win.appBar.find() // 系统任务栏句柄
+    if (lastActiveHwnd && (activeHwnd == appBarHwnd || activeHwnd == global.hwnd)) {
+        activeHwnd = lastActiveHwnd; // 如果当前是 系统任务栏，则恢复上次的活动窗口lastActiveHwnd
+    } else {
+        lastActiveHwnd = activeHwnd; // 记录上次的活动窗口句柄
+    }
+
+    if (!activeHwnd) {
+        return
+    }
+    return activeHwnd
+}
 function updateWinSize(calculate){
-	var activeHwnd = win.getForeground();
-	var appBarHwnd = win.appBar.find() // 系统任务栏句柄
-	if (lastActiveHwnd && (activeHwnd == appBarHwnd || activeHwnd == global.hwnd)) { 
-		activeHwnd = lastActiveHwnd; // 如果当前是 系统任务栏，则恢复上次的活动窗口lastActiveHwnd
-	} else {
-		lastActiveHwnd = activeHwnd; // 记录上次的活动窗口句柄
-	}
-	
-	if (!activeHwnd) {
-		return
-	}
+	var activeHwnd = getActiveHwnd();
 	var workArea = win.getWorkArea();
 	var workWidth = workArea.right - workArea.left;  // 工作区域的宽度
 	var workHeight = workArea.bottom - workArea.top; // 工作区域的高度
@@ -251,6 +255,10 @@ var keys = {
 		update = function(){
 			// https://learn.microsoft.com/zh-cn/windows/win32/api/winuser/nf-winuser-showwindow
 			::User32.ShowWindow(win.getForeground(), 3)
+		    var activeHwnd = getActiveHwnd();
+		    if (activeHwnd) {
+                    ::User32.ShowWindow(activeHwnd, 3)
+		    }
 		}
 	  },
 	{ id: "almostMaximizeTemplate.png", name: "接近最大化",tip: "", key: "", keys: {  },
