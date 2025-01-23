@@ -7,13 +7,21 @@ import winex;
 import raw;
 import process;
 import gdip;
+import process.admin
 
 var keys = loadcodex("\src\hot_keys.aardio");
 var isTableEmtry,tableIncludes,tableLength = loadcodex("\src\table_util.aardio");
 
+if (!process.admin.isRunAs()) {
+	process.admin.runas()
+} else {
+	win.quitMessage()
+}
 prcs = process() 
 
 // 如果已经有相同的进程，则直接退出
+
+/*
 for processEntry in process.each( "zephyr.exe" ) {
 	//win.msgbox('已经存在此进程')
 	 if (processEntry.th32ProcessID != prcs.id) {
@@ -21,6 +29,7 @@ for processEntry in process.each( "zephyr.exe" ) {
 	 	return ;
 	 }
 }
+*/
 
 //创建隐藏窗口
 var winform = win.form(text="Zephyr";right=300;bottom=300)
@@ -51,7 +60,7 @@ var keyDowns = {}
 superHotkey.onKeyDown = function(vk){
 	//keyDowns[[vk]] = vk
 	//keyDowns[vk] = vk
-	
+
 	table.push(keyDowns, vk);
 }
 
