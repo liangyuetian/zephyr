@@ -6,7 +6,7 @@
 
 * 左上（win+alt+u）
 * 右上（win+alt+i）
-* 左下（win+alt+i）
+* 左下（win+alt+j）
 * 左侧 2/3（win+alt+e）
 * 右侧 2/3（win+alt+t）
 * 恢复（win+alt+back）
